@@ -1,0 +1,427 @@
+<!DOCTYPE html>
+<html lang="pt-BR" class="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Caio Félix - Consultoria Esportiva</title>
+    
+    <!-- Tailwind via CDN para garantir estilização standalone -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        brand: {
+                            red: '#ef233c', // Cor primária do design system original
+                        }
+                    },
+                    fontFamily: {
+                        manrope: ['Manrope', 'sans-serif'],
+                        sans: ['Inter', 'sans-serif'],
+                        mono: ['JetBrains Mono', 'monospace'],
+                    },
+                    animation: {
+                        'pulse-slow': 'pulse 4s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+                        'beam': 'beam 2s infinite',
+                    },
+                    keyframes: {
+                        beam: {
+                            '0%': { transform: 'translateY(-100%)' },
+                            '100%': { transform: 'translateY(200%)' },
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    
+    <!-- Tipografia (Google Fonts) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500;700&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <!-- Bibliotecas JS (Lenis, GSAP para Parallax & Lucide para Ícones) -->
+    <script src="https://unpkg.com/@studio-freight/lenis@1.0.42/dist/lenis.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
+
+    <!-- Estilos Customizados (Baseados no Design System) -->
+    <style>
+        body {
+            background-color: #000000;
+            color: #ffffff;
+            font-family: 'Inter', sans-serif;
+            overflow-x: hidden;
+            scroll-behavior: smooth;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+
+        /* Efeitos Premium de Botões */
+        .shiny-cta {
+            position: relative;
+            background-color: #ef233c;
+            color: white;
+            font-family: 'Manrope', sans-serif;
+            font-weight: 600;
+            font-size: 0.875rem;
+            letter-spacing: 0.05em;
+            text-transform: uppercase;
+            padding: 1.125rem 2rem;
+            border-radius: 0;
+            overflow: hidden;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            box-shadow: 0 0 15px rgba(239,35,60,0.2);
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+            cursor: pointer;
+        }
+        .shiny-cta:hover {
+            box-shadow: 0 0 25px rgba(239,35,60,0.5);
+            transform: translateY(-2px);
+        }
+        .shiny-cta::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+            transition: all 0.5s ease;
+        }
+        .shiny-cta:hover::before {
+            left: 100%;
+            transition: 0.7s;
+        }
+
+        .secondary-btn {
+            position: relative;
+            background-color: rgba(255, 255, 255, 0.02);
+            border: 1px solid #27272a;
+            color: #a1a1aa;
+            font-family: 'Manrope', sans-serif;
+            font-weight: 600;
+            font-size: 0.875rem;
+            letter-spacing: 0.05em;
+            text-transform: uppercase;
+            padding: 1.125rem 2rem;
+            border-radius: 0;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+            cursor: pointer;
+            overflow: hidden;
+        }
+        .secondary-btn:hover {
+            color: white;
+            background-color: rgba(255,255,255,0.05);
+            border-color: rgba(239,35,60,0.5);
+            transform: translateY(-2px);
+        }
+
+        /* Badge Interativo (Design System Original) */
+        .interactive-badge {
+            background: linear-gradient(180deg, rgba(255,255,255,0.08), rgba(255,255,255,0));
+            box-shadow: inset 0 1px 0 rgba(255,255,255,0.1);
+            position: relative;
+        }
+        .interactive-badge::before {
+            content: "";
+            position: absolute;
+            inset: 0;
+            border-radius: 9999px;
+            padding: 1px;
+            background: linear-gradient(180deg, rgba(255,255,255,0.2), rgba(255,255,255,0), rgba(255,255,255,0.1));
+            -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+            -webkit-mask-composite: xor;
+            mask-composite: exclude;
+            pointer-events: none;
+        }
+
+        /* Animações de Entrada (Motion System) */
+        .fade-in-up {
+            opacity: 0;
+            transform: translateY(30px);
+            animation: fadeSlideIn 1s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+        }
+        @keyframes fadeSlideIn {
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .delay-100 { animation-delay: 100ms; }
+        .delay-200 { animation-delay: 200ms; }
+        .delay-300 { animation-delay: 300ms; }
+        .delay-400 { animation-delay: 400ms; }
+
+        /* Estilo do Container do Vídeo (Tech/Premium) */
+        .video-wrapper {
+            position: relative;
+            isolation: isolate;
+        }
+        .video-wrapper::before, .video-wrapper::after {
+            content: '';
+            position: absolute;
+            width: 12px;
+            height: 12px;
+            border-color: #ef233c;
+            border-style: solid;
+            z-index: 10;
+            opacity: 0.5;
+            transition: all 0.5s ease;
+        }
+        .video-wrapper::before {
+            top: -1px; left: -1px;
+            border-width: 2px 0 0 2px;
+        }
+        .video-wrapper::after {
+            bottom: -1px; right: -1px;
+            border-width: 0 2px 2px 0;
+        }
+        .video-wrapper:hover::before { top: -6px; left: -6px; opacity: 1; }
+        .video-wrapper:hover::after { bottom: -6px; right: -6px; opacity: 1; }
+
+        /* Estética do scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #000; 
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #18181b; 
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #27272a; 
+        }
+        
+        /* Ajuste de fonte italic para a headline */
+        .italic-serif {
+            font-style: italic;
+            font-family: ui-serif, Georgia, Cambria, "Times New Roman", Times, serif;
+        }
+    </style>
+</head>
+<body class="antialiased selection:bg-brand-red/30 selection:text-white">
+
+    <!-- 
+        HERO SECTION SCROLL-LINKED (Estilo Apple Parallax)
+        O height de 350vh cria um "trilho" de rolagem longo o suficiente para o usuário fazer o scrub do vídeo com calma.
+    -->
+    <main id="hero-scroll-container" class="relative w-full h-[350vh] bg-black">
+        
+        <!-- Wrapper Fixo (Fica na tela enquanto o usuário rola a seção) -->
+        <div class="sticky top-0 w-full h-[100dvh] overflow-hidden flex items-center justify-center">
+            
+            <!-- Imagem Sequence em Canvas (Ultra Fluido) -->
+            <div class="absolute inset-0 z-0 bg-black overflow-hidden">
+                <canvas 
+                    id="hero-canvas" 
+                    class="absolute top-1/2 left-1/2 w-[100dvh] h-[100vw] -translate-x-1/2 -translate-y-1/2 rotate-90 md:w-full md:h-full md:top-0 md:left-0 md:translate-x-0 md:translate-y-0 md:rotate-0 object-cover object-center md:object-top opacity-60 filter contrast-[1.05] saturate-[0.85]"
+                ></canvas>
+                
+                <!-- Overlay de Gradientes para Leitura e Profundidade -->
+                <div class="absolute inset-0 bg-gradient-to-t from-black via-black/40 to-transparent pointer-events-none"></div>
+                <div class="absolute inset-0 bg-gradient-to-r from-black/80 via-black/30 to-transparent pointer-events-none"></div>
+                <div class="absolute inset-0 bg-[linear-gradient(to_right,#80808012_1px,transparent_1px),linear-gradient(to_bottom,#80808012_1px,transparent_1px)] bg-[size:32px_32px] opacity-20 pointer-events-none"></div>
+            </div>
+
+            <!-- Content Grid Container -->
+            <div id="hero-content" class="relative z-10 w-full max-w-7xl mx-auto px-6 md:px-12 flex flex-col h-full justify-end pb-24 md:pb-32">
+                
+                <!-- Bloco de Textos & CTAs -->
+                <div class="w-full max-w-2xl flex flex-col justify-center items-start">
+                    
+                    <!-- Microcopy Badge -->
+                    <div class="hero-anim opacity-0 inline-flex transition-transform hover:scale-105 cursor-pointer group bg-gradient-to-br from-white/10 to-white/0 rounded-full mb-8 pt-2 pr-4 pb-2 pl-4 backdrop-blur-md gap-x-3 items-center border border-white/10 shadow-[0_4px_24px_-8px_rgba(0,0,0,0.5)]">
+                        <span class="flex h-2 w-2 rounded-full group-hover:animate-pulse bg-brand-red shadow-[0_0_10px_rgba(239,35,60,0.8)]"></span>
+                        <span class="text-[10px] sm:text-xs font-bold tracking-widest uppercase transition-colors font-mono text-zinc-300 group-hover:text-white">
+                            Acompanhamento Exclusivo
+                        </span>
+                    </div>
+
+                    <!-- Headline Forte e Elegante -->
+                    <h1 class="hero-anim opacity-0 flex flex-col leading-[1.05] text-[3rem] sm:text-6xl md:text-7xl lg:text-8xl font-medium tracking-tighter font-manrope mb-6 text-white hover:drop-shadow-[0_0_15px_rgba(255,255,255,0.2)] transition-all">
+                        <span class="bg-clip-text text-transparent bg-gradient-to-b from-white via-white to-white/70">Evolução Real</span>
+                        <span class="flex items-center gap-3">
+                            <span class="font-normal text-white/50 italic text-[2.5rem] sm:text-5xl md:text-6xl lg:text-7xl">com</span> 
+                            <span class="bg-clip-text text-transparent bg-gradient-to-r from-brand-red to-red-500 drop-shadow-[0_0_20px_rgba(239,35,60,0.6)]">Segurança</span><span class="text-brand-red -ml-2">.</span>
+                        </span>
+                    </h1>
+
+                    <!-- Subtítulo / Copy -->
+                    <p class="hero-anim opacity-0 leading-relaxed md:text-xl text-lg font-medium text-gray-400 tracking-normal font-manrope max-w-lg mb-10">
+                        Mais que um treino, um acompanhamento humano e próximo para transformar corpo e mente. Esqueça o clichê fitness, descubra a constância com direção.
+                    </p>
+
+                    <!-- CTAs Premium -->
+                    <div class="hero-anim opacity-0 flex flex-col sm:flex-row w-full gap-5 items-center sm:items-start">
+                        
+                        <!-- CTA Primário (Feixe Constante) -->
+                        <a href="#" class="w-full sm:w-auto group inline-flex overflow-hidden transition-all duration-300 hover:-translate-y-0.5 hover:shadow-[0_0_25px_rgba(239,35,60,0.4)] rounded-full pt-[1px] pr-[1px] pb-[1px] pl-[1px] relative items-center justify-center">
+                            <span class="absolute inset-[-100%] animate-[spin_3s_linear_infinite] bg-[conic-gradient(from_90deg_at_50%_50%,transparent_0%,transparent_75%,#ef233c_100%)]"></span>
+                            <span class="flex items-center justify-center gap-2 uppercase transition-colors duration-300 text-white text-[11px] sm:text-xs font-bold tracking-widest bg-gradient-to-b from-brand-red to-red-800 w-full h-full rounded-full pt-4 pr-8 pb-4 pl-8 relative shadow-[inset_0_1px_0_rgba(255,255,255,0.3)]">
+                                <span class="relative z-10">Começar Minha Evolução</span>
+                                <i data-lucide="arrow-right" class="relative z-10 w-4 h-4 transition-transform duration-300 group-hover:translate-x-1"></i>
+                            </span>
+                        </a>
+
+                        <!-- CTA Secundário (Ghost Feixe Animado) -->
+                        <a href="#" class="w-full sm:w-auto group relative inline-flex h-[54px] items-center justify-center overflow-hidden rounded-full outline-none cursor-pointer transition-transform active:scale-95" style="background-color: rgba(255, 255, 255, 0.05);">
+                            <span class="absolute inset-[-100%] animate-[spin_3s_linear_infinite] bg-[conic-gradient(from_90deg_at_50%_50%,transparent_0%,transparent_75%,#ef233c_100%)] opacity-0 transition-opacity duration-300 group-hover:opacity-100"></span>
+                            <span class="absolute inset-0 rounded-full border border-white/10 transition-opacity duration-300 group-hover:opacity-0"></span>
+                            <span class="absolute inset-[1px] rounded-full bg-black/60 backdrop-blur-md z-10"></span>
+                            <span class="absolute inset-0 pointer-events-none opacity-0 transition-opacity duration-500 group-hover:opacity-100 z-10" style="background: radial-gradient(50% 50% at 50% 100%, rgba(239, 35, 60, 0.2) 0%, transparent 100%);"></span>
+                            <span class="relative z-20 flex items-center justify-center gap-2 px-8 text-[11px] sm:text-xs font-bold text-white tracking-widest uppercase">
+                                <span>Conhecer Método</span>
+                            </span>
+                        </a>
+                    </div>
+                    
+                    <!-- Trust Cues (Detalhes discretos) -->
+                    <div class="hero-anim opacity-0 mt-12 w-full pt-6 border-t border-white/10 flex flex-wrap items-center gap-6 sm:gap-8">
+                        <div class="flex items-center gap-3 group">
+                            <div class="p-1.5 bg-black/50 border border-white/10 backdrop-blur-sm group-hover:border-brand-red transition-colors">
+                                <i data-lucide="shield-check" class="w-4 h-4 text-zinc-400 group-hover:text-brand-red transition-colors"></i>
+                            </div>
+                            <span class="text-[10px] sm:text-[11px] font-mono uppercase text-zinc-300 tracking-wide drop-shadow-md">Direcionamento Seguro</span>
+                        </div>
+                        <div class="flex items-center gap-3 group">
+                            <div class="p-1.5 bg-black/50 border border-white/10 backdrop-blur-sm group-hover:border-brand-red transition-colors">
+                                <i data-lucide="users" class="w-4 h-4 text-zinc-400 group-hover:text-brand-red transition-colors"></i>
+                            </div>
+                            <span class="text-[10px] sm:text-[11px] font-mono uppercase text-zinc-300 tracking-wide drop-shadow-md">Atenção Próxima</span>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+            <!-- Scroll Indicator Global Centralizado embaixo -->
+            <div id="hero-scroll-indicator" class="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-3 z-20">
+                <span class="text-[9px] font-mono uppercase tracking-widest text-white/70 drop-shadow-md">Scroll para interagir</span>
+                <div class="w-[1px] h-8 bg-white/20 relative overflow-hidden">
+                    <div class="absolute top-0 left-0 w-full h-full bg-brand-red animate-[beam_2s_infinite] origin-top"></div>
+                </div>
+            </div>
+
+        </div>
+    </main>
+
+    <!-- Falsa dobra para testar o fim da animação -->
+    <section class="h-[100vh] bg-[#050505] border-t border-zinc-900 relative z-20 flex flex-col items-center justify-center p-8 text-center">
+        <h2 class="text-xs font-mono text-brand-red tracking-widest uppercase font-bold mb-6">[ Próxima Seção do Site ]</h2>
+        <p class="text-lg md:text-2xl text-zinc-500 font-manrope font-medium max-w-2xl leading-relaxed">
+            A Hero terminou. O vídeo acompanhou a rolagem suavemente. A partir daqui, o layout do site continua seu fluxo normal.
+        </p>
+    </section>
+
+    <!-- Scripts de Interação -->
+    <script>
+        // Inicializar Icones Lucide
+        lucide.createIcons();
+
+        document.addEventListener("DOMContentLoaded", () => {
+            // 1. Inicializar Lenis para Smooth Scroll ultra fluido
+            const lenis = new Lenis({
+                duration: 1.2,
+                easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+                smooth: true,
+            });
+
+            // Conectar Lenis ao ScrollTrigger do GSAP
+            lenis.on('scroll', ScrollTrigger.update);
+            gsap.ticker.add((time) => {
+                lenis.raf(time * 1000);
+            });
+            gsap.ticker.lagSmoothing(0);
+
+            gsap.registerPlugin(ScrollTrigger);
+
+            const canvas = document.getElementById('hero-canvas');
+            const context = canvas.getContext('2d');
+            if (!canvas) return;
+
+            // Define o tamanho base do canvas baseado nas imagens extraídas
+            canvas.width = 1920;
+            canvas.height = 1080;
+
+            const frameCount = 240;
+            const currentFrame = index => (
+                `assets/raw_files/frames/frame_${(index + 1).toString().padStart(4, '0')}.jpg`
+            );
+
+            const images = [];
+            const canvasObj = { frame: 0 };
+
+            // Preload de todas as imagens em memória para acesso instantâneo
+            for (let i = 0; i < frameCount; i++) {
+                const img = new Image();
+                img.src = currentFrame(i);
+                images.push(img);
+            }
+
+            // Renderiza o primeiro frame quando carregar
+            images[0].onload = render;
+
+            function render() {
+                // Desenha a imagem correspondente ao índice atual
+                if (images[Math.round(canvasObj.frame)]) {
+                    context.clearRect(0, 0, canvas.width, canvas.height);
+                    context.drawImage(images[Math.round(canvasObj.frame)], 0, 0, canvas.width, canvas.height);
+                }
+            }
+
+            // Timeline sincronizada com o Scroll
+            let tl = gsap.timeline({
+                scrollTrigger: {
+                    trigger: "#hero-scroll-container",
+                    start: "top top",
+                    end: "bottom bottom",
+                    scrub: 0.1 // O scrub quase instantâneo porque as imagens desenham rápido
+                }
+            });
+
+            // 1. Anima as imagens do Canvas (Duração 1 = 100% do scroll da seção)
+            tl.to(canvasObj, {
+                frame: frameCount - 1,
+                snap: "frame", // arredonda para o index de array
+                ease: "none",
+                duration: 1,
+                onUpdate: render 
+            }, 0); // Inicia no tempo 0 da timeline
+
+            // 2. Faz o conteúdo (textos/CTAs) desaparecer bem mais rápido (ex: em 35% do scroll)
+            // Assim, quando a barra chega no centro, a tela já está limpa.
+            tl.to("#hero-content", {
+                opacity: 0,
+                y: -100, // Sobe 100px para dar um efeito de parallax no desaparecimento
+                filter: "blur(15px)", // Adiciona Blur Out
+                duration: 0.35, // Some na primeira terça parte do vídeo
+                ease: "power2.inOut" // Desaparecimento suave
+            }, 0);
+
+            // 3. Faz o aviso de "Scroll" sumir hiper rápido (nos primeiros 15% do scroll)
+            tl.to("#hero-scroll-indicator", {
+                opacity: 0,
+                y: 30,
+                filter: "blur(10px)", // Adiciona Blur Out
+                duration: 0.15, 
+                ease: "power2.in"
+            }, 0);
+
+            // 4. Animação de Entrada Inicial (Blur In Cinematográfico)
+            gsap.fromTo(".hero-anim", 
+                { opacity: 0, y: 30, filter: "blur(15px)" },
+                { opacity: 1, y: 0, filter: "blur(0px)", duration: 1.2, stagger: 0.15, ease: "power3.out", delay: 0.3 }
+            );
+        });
+    </script>
+</body>
+</html>

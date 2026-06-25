@@ -1,0 +1,102 @@
+/* animations.css - Animation keyframes and utilities */
+
+/* Fade Slide In */
+@keyframes fadeSlideIn {
+  0% {
+    opacity: 0;
+    transform: translateY(30px);
+    filter: blur(8px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+    filter: blur(0px);
+  }
+}
+
+/* Sequence animation intro */
+@keyframes animationIn {
+  0% {
+    opacity: 0;
+    transform: translateY(30px);
+    filter: blur(8px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+    filter: blur(0px);
+  }
+}
+
+/* Column Clip Reveal */
+@keyframes columnReveal {
+  0% {
+    clip-path: inset(0 0 100% 0);
+    opacity: 0;
+  }
+  100% {
+    clip-path: inset(0 0 0% 0);
+    opacity: 1;
+  }
+}
+
+.col-anim {
+  animation: columnReveal 1.4s cubic-bezier(0.16, 1, 0.3, 1) backwards;
+  will-change: clip-path;
+}
+
+/* Staggered Delays */
+.delay-1 { animation-delay: 0.1s; }
+.delay-2 { animation-delay: 0.2s; }
+.delay-3 { animation-delay: 0.3s; }
+.delay-4 { animation-delay: 0.4s; }
+.delay-5 { animation-delay: 0.5s; }
+.delay-6 { animation-delay: 0.6s; }
+.delay-7 { animation-delay: 0.7s; }
+
+/* Scroll State Management */
+.animate-on-scroll { animation-play-state: paused !important; }
+.animate-on-scroll.animate { animation-play-state: running !important; }
+
+/* Marquee */
+@keyframes marquee {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+.animate-marquee {
+  animation: marquee 20s linear infinite;
+}
+
+/* Beam */
+@keyframes beam {
+  0% { left: -100%; }
+  100% { left: 100%; }
+}
+.animate-beam {
+  animation: beam 2s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+}
+
+/* Clip Reveal */
+@keyframes clip-reveal {
+  0% { clip-path: inset(100% 0 0 0); }
+  100% { clip-path: inset(0 0 0 0); }
+}
+.animate-clip {
+  animation: clip-reveal 1.5s cubic-bezier(0.77, 0, 0.175, 1) infinite alternate;
+}
+
+/* Card Stack Cycle */
+@keyframes cardStackCycle {
+  0%, 25% { transform: translateY(0) scale(1); z-index: 30; opacity: 1; filter: blur(0px); }
+  33%, 58% { transform: translateY(-40px) scale(0.85); z-index: 10; opacity: 0.5; filter: blur(2px); }
+  66%, 91% { transform: translateY(-20px) scale(0.92); z-index: 20; opacity: 0.75; filter: blur(1px); }
+  100% { transform: translateY(0) scale(1); z-index: 30; opacity: 1; filter: blur(0px); }
+}
+@media (min-width: 768px) {
+  @keyframes cardStackCycle {
+    0%, 25% { transform: translateY(0) scale(1); z-index: 30; opacity: 1; filter: blur(0px); }
+    33%, 58% { transform: translateY(-60px) scale(0.85); z-index: 10; opacity: 0.5; filter: blur(2px); }
+    66%, 91% { transform: translateY(-30px) scale(0.92); z-index: 20; opacity: 0.75; filter: blur(1px); }
+    100% { transform: translateY(0) scale(1); z-index: 30; opacity: 1; filter: blur(0px); }
+  }
+}

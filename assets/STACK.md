@@ -1,0 +1,6 @@
+- **Tailwind CSS** — utility-first CSS framework used for all layout and styling
+- **Lucide** — icon library used throughout the interface
+- **Iconify** — icon library used for some icons
+- **Google Fonts** — typography (Geist, Space Grotesk, Manrope, Inter, etc.)
+- **Unicorn Studio** — WebGL backgrounds and effects
+- **Supabase** — asset hosting and token firewall script

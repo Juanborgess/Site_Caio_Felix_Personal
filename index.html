@@ -1,0 +1,313 @@
+<!DOCTYPE html>
+<html class="dark" lang="pt-BR">
+<head>
+    <meta charset="utf-8"/>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+    <title>Caio Félix | Consultoria Esportiva Humanizada</title>
+    
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <!-- Tailwind via CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    fontFamily: {
+                        manrope: ['Manrope', 'sans-serif'],
+                        sans: ['Inter', 'sans-serif'],
+                    },
+                    colors: {
+                        brand: {
+                            red: '#ef233c',
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+
+    <!-- Base / Globals -->
+    <link rel="stylesheet" href="assets/css/animations.css"/>
+    <link rel="stylesheet" href="assets/css/components.css"/>
+    <link rel="stylesheet" href="assets/css/base.css"/>
+    <link rel="stylesheet" href="assets/css/globals.css"/>
+
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+
+    <!-- GSAP -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+
+    <style>
+        /* Fallbacks e refinamentos que não exigem Tailwind build */
+        body {
+            background-color: #000000;
+            color: #ffffff;
+            overflow-x: hidden;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        /* Efeito de Gradiente de Texto Premium */
+        .text-gradient {
+            background: linear-gradient(180deg, #ffffff 0%, rgba(255, 255, 255, 0.5) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        /* Animações e Componentes Injetados (Garantia visual) */
+        @property --gradient-angle { syntax: "<angle>"; initial-value: 0deg; inherits: false; }
+        
+        .shiny-cta {
+            --gradient-angle: 0deg;
+            position: relative;
+            overflow: hidden;
+            border-radius: 9999px;
+            background: linear-gradient(#000000, #000000) padding-box,
+            conic-gradient(from var(--gradient-angle), transparent 0%, #ef233c 5%, #ffffff 15%, #ef233c 30%, transparent 40%, transparent 100%) border-box;
+            border: 2px solid transparent;
+            box-shadow: inset 0 0 0 1px rgba(255,255,255,0.1);
+            outline: none;
+            transition: transform 0.2s ease, box-shadow 0.3s ease;
+            cursor: pointer;
+            z-index: 1;
+            animation: border-spin 3s linear infinite;
+        }
+        
+        .shiny-cta:hover {
+            transform: translateY(-2px);
+            box-shadow: inset 0 0 0 1px rgba(255,255,255,0.2), 0 10px 30px -10px rgba(239,35,60,0.5);
+        }
+
+        .shiny-cta::after {
+            content: '';
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            transform: translate(-50%, -50%);
+            z-index: -1;
+            width: 100%;
+            aspect-ratio: 1;
+            background: linear-gradient(-50deg, transparent, #ef233c, transparent);
+            mask-image: radial-gradient(circle at bottom, transparent 40%, black);
+            -webkit-mask-image: radial-gradient(circle at bottom, transparent 40%, black);
+            opacity: 0.5;
+            animation: shimmer 4s linear infinite;
+        }
+        
+        @keyframes border-spin { to { --gradient-angle: 360deg; } }
+        @keyframes shimmer { to { transform: translate(-50%, -50%) rotate(360deg); } }
+
+        /* Secondary Beam Button */
+        .beam-btn {
+            position: relative;
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255,255,255,0.1);
+            transition: all 0.3s ease;
+            overflow: hidden;
+        }
+        
+        .beam-btn:hover {
+            border-color: rgba(255,255,255,0.2);
+            background: rgba(255, 255, 255, 0.06);
+        }
+
+        .beam-btn .beam-spin {
+            position: absolute;
+            inset: -100%;
+            background: conic-gradient(from 90deg at 50% 50%, transparent 0%, transparent 75%, #ef233c 100%);
+            animation: border-spin 3s linear infinite;
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+
+        .beam-btn:hover .beam-spin {
+            opacity: 1;
+        }
+
+        .beam-btn .beam-inner {
+            position: absolute;
+            inset: 1px;
+            background: #000;
+            z-index: 0;
+        }
+
+        /* Ocultar barra de rolagem para um visual mais limpo na hero */
+        ::-webkit-scrollbar {
+            width: 6px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #000000;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #27272a;
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #3f3f46;
+        }
+    </style>
+</head>
+<body class="antialiased font-sans">
+
+    <!-- HERO SECTION SCROLLABLE -->
+    <!-- 300vh cria o espaço de scroll para fazer o scrub do vídeo -->
+    <section id="hero-scroll" class="relative w-full h-[300vh]">
+        
+        <!-- WRAPPER STICKY -->
+        <div class="sticky top-0 w-full h-screen overflow-hidden flex items-center justify-center">
+            
+            <!-- AURA/GLOW EFFECTS (Refinamento escuro e sutil) -->
+            <div class="absolute inset-0 z-0 pointer-events-none overflow-hidden">
+                <div class="absolute top-0 w-full h-full bg-[linear-gradient(rgba(255,255,255,0.03)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.03)_1px,transparent_1px)] bg-[size:4rem_4rem] [mask-image:radial-gradient(ellipse_60%_50%_at_50%_0%,#000_70%,transparent_100%)] opacity-40"></div>
+                <!-- Luzes vermelhas sutis no fundo -->
+                <div class="absolute top-[-20%] right-[-10%] w-[50vw] h-[50vw] max-w-[800px] max-h-[800px] bg-brand-red rounded-full blur-[150px] opacity-10 animate-pulse"></div>
+                <div class="absolute bottom-[-10%] left-[-10%] w-[40vw] h-[40vw] max-w-[600px] max-h-[600px] bg-[#ef233c] rounded-full blur-[130px] opacity-[0.08]"></div>
+            </div>
+
+            <!-- CONTAINER PRINCIPAL -->
+            <div class="relative z-10 w-full max-w-7xl mx-auto px-6 h-full flex flex-col lg:grid lg:grid-cols-12 gap-10 lg:gap-14 items-center justify-center pt-24 lg:pt-0 pb-10 lg:pb-0">
+                
+                <!-- CONTEÚDO DE TEXTO (Esquerda) -->
+                <div class="lg:col-span-5 flex flex-col items-center lg:items-start text-center lg:text-left space-y-6 lg:space-y-8 w-full mt-4 lg:mt-0 text-wrapper">
+                    
+                    <!-- Selo de Confiança / Humanização -->
+                    <div class="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/5 border border-white/10 backdrop-blur-sm transition-all hover:bg-white/10 cursor-default">
+                        <span class="flex h-1.5 w-1.5 rounded-full bg-brand-red shadow-[0_0_10px_rgba(239,35,60,0.8)] animate-pulse"></span>
+                        <span class="text-[11px] sm:text-xs font-semibold text-zinc-300 uppercase tracking-widest">
+                            Acompanhamento Humanizado
+                        </span>
+                    </div>
+
+                    <!-- Headline Memorável & Segura -->
+                    <h1 class="text-4xl sm:text-5xl lg:text-6xl xl:text-[4.5rem] font-medium tracking-tighter font-manrope leading-[1.05]">
+                        <span class="block text-white mb-2">Evolução segura.</span>
+                        <span class="block text-gradient">Resultados reais.</span>
+                    </h1>
+
+                    <!-- Copy de Suporte -->
+                    <p class="text-base sm:text-lg lg:text-xl text-zinc-400 font-sans leading-relaxed max-w-md lg:max-w-lg">
+                        Treinos individualizados que respeitam o seu corpo. Transforme sua saúde, mente e constância sem extremismos e com total segurança.
+                    </p>
+
+                    <!-- Call to Actions -->
+                    <div class="flex flex-col sm:flex-row gap-4 w-full sm:w-auto pt-4">
+                        <!-- CTA Principal (Shiny) -->
+                        <button class="shiny-cta px-8 py-4 sm:py-0 sm:h-[56px] w-full sm:w-auto" type="button">
+                            <span class="relative z-10 flex items-center justify-center gap-2 text-[13px] sm:text-sm font-bold uppercase tracking-wider text-white">
+                                Começar minha evolução
+                                <i data-lucide="arrow-right" class="w-4 h-4"></i>
+                            </span>
+                        </button>
+                        
+                        <!-- CTA Secundário (Beam) -->
+                        <button class="beam-btn group px-8 py-4 sm:py-0 sm:h-[56px] w-full sm:w-auto flex items-center justify-center rounded-sm" type="button">
+                            <span class="beam-spin"></span>
+                            <span class="beam-inner rounded-[calc(0.125rem-1px)]"></span>
+                            <span class="relative z-10 flex items-center justify-center gap-2 text-[13px] sm:text-sm font-semibold uppercase tracking-wider text-zinc-300 group-hover:text-white transition-colors">
+                                Falar com Caio
+                                <i data-lucide="message-circle" class="w-4 h-4 text-zinc-500 group-hover:text-white transition-colors"></i>
+                            </span>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- VÍDEO HERO (Direita) -->
+                <div class="lg:col-span-7 w-full h-[45vh] lg:h-[80vh] relative video-wrapper perspective-1000">
+                    <div class="w-full h-full relative rounded-[2rem] overflow-hidden border border-zinc-800/80 shadow-[0_0_60px_rgba(239,35,60,0.06)] bg-zinc-900/30 group">
+                        
+                        <!-- Sombras/Gradientes internos para entrosar o vídeo ao fundo dark -->
+                        <div class="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent z-10 pointer-events-none"></div>
+                        <div class="absolute inset-0 bg-gradient-to-l from-transparent via-transparent to-black/30 z-10 pointer-events-none hidden lg:block"></div>
+                        
+                        <!-- O Vídeo da Barra -->
+                        <video 
+                            id="hero-video"
+                            class="absolute inset-0 w-full h-full object-cover z-0"
+                            src="assets/raw_files/video.mp4"
+                            muted
+                            playsinline
+                            preload="auto">
+                        </video>
+
+                        <!-- Borda de brilho premium (inner ring) -->
+                        <div class="absolute inset-0 rounded-[2rem] border border-white/10 z-20 pointer-events-none mix-blend-overlay"></div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- Interações e Animações GSAP -->
+    <script>
+        // Renderiza os ícones
+        lucide.createIcons();
+
+        document.addEventListener("DOMContentLoaded", () => {
+            // Registra ScrollTrigger
+            gsap.registerPlugin(ScrollTrigger);
+
+            const video = document.querySelector("#hero-video");
+            const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+            // Animações de Entrada Iniciais (Se o usuário não preferir movimento reduzido)
+            if (!prefersReducedMotion) {
+                // Entrada do texto
+                gsap.fromTo(".text-wrapper > *", 
+                    { opacity: 0, y: 40 },
+                    { opacity: 1, y: 0, duration: 1.2, stagger: 0.15, ease: "power4.out", delay: 0.2 }
+                );
+
+                // Entrada do vídeo (escala sutil e fade)
+                gsap.fromTo(".video-wrapper", 
+                    { opacity: 0, scale: 0.96, filter: "blur(8px)" },
+                    { opacity: 1, scale: 1, filter: "blur(0px)", duration: 1.5, ease: "power3.out", delay: 0.4 }
+                );
+            }
+
+            // --- Scroll Parallax / Scrubbing no Vídeo ---
+            // O evento loadedmetadata é crucial para sabermos a duração do vídeo antes de escrubbar
+            video.addEventListener("loadedmetadata", () => {
+                if (prefersReducedMotion) {
+                    // Fallback de acessibilidade: apenas tocar lento se houver scroll ou autoplay suave
+                    video.playbackRate = 0.6;
+                    video.autoplay = true;
+                    video.loop = true;
+                    video.play();
+                    return;
+                }
+
+                // Cria o efeito estilo Apple onde o scroll dita o tempo do vídeo
+                ScrollTrigger.create({
+                    trigger: "#hero-scroll",
+                    start: "top top",     // Começa quando a section bate no topo
+                    end: "bottom bottom", // Termina quando o fim da section bate no fim da tela
+                    scrub: 1,             // Suavidade do scrub (1 segundo para alcançar a posição real)
+                    onUpdate: (self) => {
+                        if (video.duration) {
+                            // Atualiza o tempo do vídeo proporcionalmente ao progresso do scroll
+                            video.currentTime = self.progress * video.duration;
+                        }
+                    }
+                });
+            });
+
+            // Força o carregamento do vídeo para garantir os metadados (Especialmente no iOS/Safari)
+            video.load();
+
+            // Garantia de exibição do primeiro frame caso o scrub demore a registrar
+            video.addEventListener('suspend', () => {
+                if (video.currentTime === 0 && video.duration) {
+                    video.currentTime = 0.05; 
+                }
+            });
+        });
+    </script>
+</body>
+</html>
