@@ -82,8 +82,8 @@
 
     <!-- Bibliotecas JS (Lenis, GSAP para Parallax & Lucide para Ícones) -->
     <script defer src="https://unpkg.com/@studio-freight/lenis@1.0.42/dist/lenis.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+    <script defer src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script defer src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
     <script defer src="https://unpkg.com/lucide@latest"></script>
 
     <!-- Estilos Customizados (Baseados no Design System) -->
@@ -348,7 +348,7 @@
             </a>
 
             <!-- Desktop Nav -->
-            <nav class="hidden md:flex items-center gap-8">
+            <nav class="hidden lg:flex items-center gap-8">
                 <a href="#como-funciona"
                     class="text-base font-medium text-zinc-300 hover:text-white transition-colors relative group">
                     O Método
@@ -378,13 +378,13 @@
             <!-- Desktop CTA & Mobile Toggle -->
             <div class="flex items-center gap-4 z-50">
                 <a href="https://wa.me/559180698579" target="_blank" rel="noopener noreferrer"
-                    class="hidden md:inline-flex items-center justify-center gap-2 px-6 py-2.5 rounded-full bg-white/5 border border-white/10 text-white text-xs font-bold tracking-widest uppercase hover:bg-white/10 hover:border-brand-red/50 hover:shadow-[0_0_20px_rgba(239,35,60,0.2)] transition-all duration-300 backdrop-blur-md">
+                    class="hidden lg:inline-flex items-center justify-center gap-2 px-6 py-2.5 rounded-full bg-white/5 border border-white/10 text-white text-xs font-bold tracking-widest uppercase hover:bg-white/10 hover:border-brand-red/50 hover:shadow-[0_0_20px_rgba(239,35,60,0.2)] transition-all duration-300 backdrop-blur-md">
                     <i data-lucide="message-circle" class="w-4 h-4 text-brand-red"></i>
                     Falar com Caio
                 </a>
 
                 <!-- Hamburger Button -->
-                <button id="mobile-menu-btn" class="md:hidden p-2 text-white outline-none">
+                <button id="mobile-menu-btn" class="lg:hidden p-2 text-white outline-none">
                     <i data-lucide="menu" class="w-6 h-6"></i>
                 </button>
             </div>
@@ -420,7 +420,7 @@
             <!-- Imagem Sequence em Canvas (Ultra Fluido) -->
             <div class="absolute inset-0 z-0 bg-black overflow-hidden">
                 <canvas id="hero-canvas"
-                    class="absolute top-1/2 left-1/2 w-[100dvh] h-[100vw] -translate-x-1/2 -translate-y-1/2 rotate-90 md:w-full md:h-full md:top-0 md:left-0 md:translate-x-0 md:translate-y-0 md:rotate-0 object-cover object-center md:object-top opacity-60 filter contrast-[1.05] saturate-[0.85]"></canvas>
+                    class="absolute top-1/2 left-1/2 w-[100dvh] h-[100vw] -translate-x-1/2 -translate-y-1/2 rotate-90 lg:w-full lg:h-full lg:top-0 lg:left-0 lg:translate-x-0 lg:translate-y-0 lg:rotate-0 object-cover object-center lg:object-top opacity-60 filter contrast-[1.05] saturate-[0.85]"></canvas>
 
                 <!-- Overlay de Gradientes para Leitura e Profundidade -->
                 <div
@@ -434,15 +434,15 @@
                 </div>
                 <!-- Content Grid Container -->
                 <div id="hero-content"
-                    class="relative z-10 w-full max-w-7xl mx-auto px-6 md:px-12 flex flex-col md:flex-row h-full justify-start md:justify-between items-center md:items-center pb-6 md:pb-0 pt-[100px] md:pt-0 gap-2 md:gap-12">
+                    class="relative z-10 w-full max-w-7xl mx-auto px-6 lg:px-12 flex flex-col lg:flex-row h-full justify-start lg:justify-between items-center lg:items-center pb-6 lg:pb-0 pt-[100px] lg:pt-[60px] gap-4 md:gap-8 lg:gap-12">
 
                     <!-- Bloco de Textos & CTAs -->
                     <div
-                        class="w-full md:w-6/12 flex flex-col justify-center items-center md:items-start text-center md:text-left z-20 mt-2 md:mt-0">
+                        class="w-full lg:w-6/12 flex flex-col justify-center items-center lg:items-start text-center lg:text-left z-20 mt-2 lg:mt-0">
 
                         <!-- Microcopy Badge -->
                         <div
-                            class="hero-anim opacity-0 inline-flex transition-transform hover:scale-105 cursor-pointer group bg-gradient-to-br from-white/10 to-white/0 rounded-full mb-3 lg:mb-8 py-1.5 px-3 lg:py-2 lg:px-4 backdrop-blur-md gap-x-2 lg:gap-x-3 items-center border border-white/10 shadow-[0_4px_24px_-8px_rgba(0,0,0,0.5)]">
+                            class="hero-anim opacity-0 inline-flex transition-transform hover:scale-105 cursor-pointer group bg-gradient-to-br from-white/10 to-white/0 rounded-full mb-3 lg:mb-6 py-1.5 px-3 lg:py-2 lg:px-4 backdrop-blur-md gap-x-2 lg:gap-x-3 items-center border border-white/10 shadow-[0_4px_24px_-8px_rgba(0,0,0,0.5)]">
                             <span
                                 class="flex h-1.5 w-1.5 lg:h-2 lg:w-2 rounded-full group-hover:animate-pulse bg-brand-red shadow-[0_0_10px_rgba(239,35,60,0.8)]"></span>
                             <span
@@ -453,7 +453,7 @@
 
                         <!-- Headline Forte e Elegante -->
                         <h1
-                            class="hero-anim opacity-0 flex flex-col items-center lg:items-start leading-[1.05] lg:leading-[1] text-[2.5rem] sm:text-5xl md:text-6xl lg:text-[5.5rem] font-medium tracking-tighter font-manrope mb-3 lg:mb-8 text-white hover:drop-shadow-[0_0_20px_rgba(255,255,255,0.3)] transition-all">
+                            class="hero-anim opacity-0 flex flex-col items-center lg:items-start leading-[1.05] lg:leading-[1] text-[2.5rem] sm:text-5xl md:text-6xl lg:text-[5.5rem] font-medium tracking-tighter font-manrope mb-3 lg:mb-4 text-white hover:drop-shadow-[0_0_20px_rgba(255,255,255,0.3)] transition-all">
                             <span
                                 class="bg-clip-text text-transparent bg-gradient-to-b from-white via-white to-white/70 pb-0 lg:pb-1">Evolução
                                 Real</span>
@@ -468,7 +468,7 @@
 
                         <!-- Subtítulo / Copy -->
                         <p
-                            class="hero-anim opacity-0 leading-snug lg:leading-relaxed text-base lg:text-[1.15rem] font-medium text-zinc-400 tracking-normal font-manrope max-w-[340px] sm:max-w-md lg:max-w-[85%] mx-auto lg:mx-0 mb-4 lg:mb-12">
+                            class="hero-anim opacity-0 leading-snug lg:leading-relaxed text-base lg:text-[1.15rem] font-medium text-zinc-400 tracking-normal font-manrope max-w-[340px] sm:max-w-md lg:max-w-[85%] mx-auto lg:mx-0 mb-4 lg:mb-8">
                             Mais que um treino, um acompanhamento humano e próximo para transformar corpo e mente.
                             Esqueça o clichê fitness, descubra a constância com direção.
                         </p>
@@ -510,8 +510,8 @@
                             </a>
                         </div>
 
-                        <!-- Card Caio (Visível Apenas no Mobile, entre os botões e os ícones de confiança) -->
-                        <div class="hero-anim opacity-0 block md:hidden w-[60%] max-w-[220px] mx-auto mt-4 mb-2 z-20">
+                        <!-- Card Caio (Visível Apenas no Mobile/Tablet, entre os botões e os ícones de confiança) -->
+                        <div class="hero-anim opacity-0 block lg:hidden w-[60%] sm:w-[50%] md:w-[45%] max-w-[280px] mx-auto mt-4 md:mt-8 mb-2 z-20">
                             <div
                                 class="group relative w-full aspect-[4/4.5] sm:aspect-[4/5] rounded-2xl overflow-hidden p-[1px] shadow-[0_15px_40px_rgba(0,0,0,0.8)] transition-all duration-700 mx-auto">
                                 <!-- Animated Border Beam -->
@@ -560,7 +560,7 @@
 
                         <!-- Bottom Info Row -->
                         <div
-                            class="hero-anim opacity-0 mt-4 lg:mt-14 w-[90%] max-w-[340px] sm:max-w-none mx-auto lg:mx-0 pt-4 lg:pt-8 border-t border-white/10 flex flex-wrap justify-center lg:justify-start items-center gap-4 lg:gap-10">
+                            class="hero-anim opacity-0 mt-4 lg:mt-8 w-[90%] max-w-[340px] sm:max-w-none mx-auto lg:mx-0 pt-4 lg:pt-6 border-t border-white/10 flex flex-wrap justify-center lg:justify-start items-center gap-4 lg:gap-10">
                             <div
                                 class="flex items-center gap-2 lg:gap-3 text-zinc-400 hover:text-white transition-colors cursor-default">
                                 <i data-lucide="shield-check" class="w-4 h-4 lg:w-5 lg:h-5 text-brand-red"></i>
@@ -579,7 +579,7 @@
                     </div>
 
                     <!-- Card Caio (Visível apenas no Desktop, alinhado à direita) -->
-                    <div class="hero-anim opacity-0 hidden md:block md:w-5/12 max-w-[480px] z-20 perspective-1000">
+                    <div class="hero-anim opacity-0 hidden lg:block lg:w-5/12 lg:max-w-[340px] xl:max-w-[420px] 2xl:max-w-[480px] z-20 perspective-1000">
 
                         <!-- Premium Card Wrapper -->
                         <div
@@ -596,7 +596,7 @@
                             <!-- Image Container -->
                             <div class="absolute inset-[2px] md:rounded-[22px] overflow-hidden z-10">
                                 <!-- Desktop Img (Vertical / Portrait) -->
-                                <img loading="lazy" decoding="async" src="assets/images/caio-vertical.jpg"
+                                <img fetchpriority="high" decoding="async" src="assets/images/caio-vertical.jpg"
                                     class="w-full h-full object-cover object-[center_top] transform group-hover:scale-105 transition-transform duration-1000 ease-out filter contrast-[1.15] saturate-[1.1]"
                                     alt="Caio Félix">
 
@@ -664,11 +664,11 @@
             class="cf-bg-glow absolute bottom-0 right-0 w-[500px] h-[500px] bg-brand-red/5 blur-[150px] rounded-full pointer-events-none mix-blend-screen opacity-50">
         </div>
 
-        <div class="relative max-w-7xl mx-auto px-6 md:px-12">
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-16 md:gap-24 items-center">
+        <div class="relative max-w-7xl mx-auto px-6 lg:px-12">
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 sm:gap-16 lg:gap-24 items-center">
 
                 <!-- Bloco Visual (Esquerda) -->
-                <div class="order-2 md:order-1 relative w-full flex justify-center md:justify-start">
+                <div class="order-2 lg:order-1 relative w-full flex justify-center lg:justify-start">
                     <!-- O frame premium ao redor da imagem (Inspirado no visual limpo da referência) -->
                     <div
                         class="cf-image-reveal opacity-0 w-full max-w-[360px] sm:max-w-md lg:max-w-[500px] relative rounded-3xl p-[1px] shadow-[0_30px_60px_rgba(0,0,0,0.9)] bg-zinc-950 backdrop-blur-md border border-white/5 group perspective-1000">
@@ -741,7 +741,7 @@
 
                 <!-- Bloco de Conteúdo (Direita) -->
                 <div
-                    class="order-1 md:order-2 flex flex-col justify-center items-center md:items-start text-center md:text-left">
+                    class="order-1 lg:order-2 flex flex-col justify-center items-center lg:items-start text-center lg:text-left">
 
                     <!-- Eyebrow -->
                     <div
@@ -878,12 +878,12 @@
             class="absolute inset-0 bg-[radial-gradient(circle_at_1px_1px,rgba(255,255,255,0.05)_1px,transparent_0)] bg-[size:24px_24px] opacity-40 pointer-events-none z-0 mix-blend-screen">
         </div>
 
-        <div class="relative max-w-7xl mx-auto px-6 md:px-12 flex flex-col z-10">
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-16 md:gap-24 items-center">
+        <div class="relative max-w-7xl mx-auto px-6 lg:px-12 flex flex-col z-10">
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 sm:gap-16 lg:gap-24 items-center">
 
                 <!-- Bloco de Conteúdo (Esquerda) -->
                 <div
-                    class="order-2 md:order-1 flex flex-col justify-center items-center md:items-start text-center md:text-left">
+                    class="order-2 lg:order-1 flex flex-col justify-center items-center lg:items-start text-center lg:text-left">
                     <!-- Eyebrow -->
                     <div
                         class="co-text-reveal opacity-0 inline-flex items-center gap-3 text-[9px] sm:text-xs font-mono font-bold tracking-[0.2em] text-zinc-400 uppercase mb-4 sm:mb-6 px-4 py-1.5 rounded-full border border-white/10 bg-white/5 shadow-inner">
@@ -970,7 +970,7 @@
                     </div>
 
                     <!-- CTA Button Premium Inspirado no instagram-slides -->
-                    <div class="co-text-reveal opacity-0 w-full flex justify-center md:justify-start">
+                    <div class="co-text-reveal opacity-0 w-full flex justify-center lg:justify-start">
                         <a href="https://wa.me/559180698579" target="_blank" rel="noopener noreferrer"
                             class="group inline-flex overflow-hidden transition-all duration-300 hover:-translate-y-0.5 hover:shadow-[0_0_25px_rgba(255,255,255,0.1)] rounded-full p-[1px] relative items-center justify-center scale-95 sm:scale-100">
                             <!-- Spinning Border Beam -->
@@ -997,7 +997,7 @@
                 </div>
 
                 <!-- Bloco Visual (Direita) -->
-                <div class="order-1 md:order-2 flex justify-center relative w-full">
+                <div class="order-1 lg:order-2 flex justify-center relative w-full">
                     <!-- O frame premium da imagem -->
                     <div
                         class="co-image-reveal opacity-0 w-full max-w-[360px] sm:max-w-md lg:max-w-[480px] relative rounded-[32px] p-[1px] shadow-[0_30px_60px_rgba(0,0,0,0.9)] bg-zinc-950 backdrop-blur-md border border-white/5 group perspective-1000">
@@ -1164,11 +1164,11 @@
             class="absolute inset-0 bg-[radial-gradient(circle_at_1px_1px,rgba(255,255,255,0.05)_1px,transparent_0)] bg-[size:24px_24px] opacity-40 pointer-events-none z-0 mix-blend-screen">
         </div>
 
-        <div class="relative max-w-7xl mx-auto px-6 md:px-12 flex flex-col z-10">
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-16 md:gap-24 items-center">
+        <div class="relative max-w-7xl mx-auto px-6 lg:px-12 flex flex-col z-10">
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 sm:gap-16 lg:gap-24 items-center">
 
                 <!-- Bloco Visual (Esquerda) -->
-                <div class="order-2 md:order-1 flex justify-center md:justify-start relative w-full">
+                <div class="order-2 lg:order-1 flex justify-center lg:justify-start relative w-full">
                     <div
                         class="cp-image-reveal opacity-0 w-full max-w-[360px] sm:max-w-md lg:max-w-[480px] relative rounded-[32px] p-[1px] shadow-[0_30px_60px_rgba(0,0,0,0.9)] bg-zinc-900 backdrop-blur-md border border-white/10 group perspective-1000 overflow-hidden">
 
@@ -1238,7 +1238,7 @@
 
                 <!-- Bloco de Conteúdo (Direita) -->
                 <div
-                    class="order-1 md:order-2 flex flex-col justify-center items-center md:items-start text-center md:text-left">
+                    class="order-1 lg:order-2 flex flex-col justify-center items-center lg:items-start text-center lg:text-left">
                     <!-- Eyebrow -->
                     <div
                         class="cp-text-reveal opacity-0 inline-flex items-center gap-3 text-[9px] sm:text-xs font-mono font-bold tracking-[0.2em] text-zinc-400 uppercase mb-4 sm:mb-6 px-4 py-1.5 rounded-full border border-white/10 bg-white/5 shadow-inner">
@@ -1316,7 +1316,7 @@
                     </div>
 
                     <!-- CTA Button -->
-                    <div class="cp-text-reveal opacity-0 w-full flex justify-center md:justify-start">
+                    <div class="cp-text-reveal opacity-0 w-full flex justify-center lg:justify-start">
                         <a href="https://wa.me/559180698579" target="_blank" rel="noopener noreferrer"
                             class="group inline-flex overflow-hidden transition-all duration-300 hover:-translate-y-0.5 hover:shadow-[0_0_25px_rgba(255,255,255,0.1)] rounded-full p-[1px] relative items-center justify-center scale-95 sm:scale-100">
                             <!-- Spinning Border Beam -->
